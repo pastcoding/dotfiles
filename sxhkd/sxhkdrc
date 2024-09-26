@@ -1,0 +1,46 @@
+#
+# wm independent hotkeys
+#
+# system control
+super + {alt,ctrl,alt + ctrl} + Escape
+  sudo systemctl {suspend,reboot,poweroff}
+
+# terminal emulator
+super + {_,shift + }Return
+	{alacritty, ~/.config/scripts/terminal_tmux.sh}
+
+# applications
+# w = web f = files
+super + a ; {w,f} 
+  {thorium-browser,thunar}
+
+# change wallpaper
+super + c ; {w}
+  {~/.config/scripts/wallpaper.sh}
+
+# screenshots
+super + shift + p ; {d,f,s}
+  scrot {-m,-u -b,-s} -q 100 ~/Pictures/Screenshots/%d-%m-%Y-%H%M%s.png -e "xclip -selection clipboard -t image/png -i \$f && notify-send 'Screenshot saved in Clipboard'"
+
+super + shift + p ; {m}
+  {~/.config/scripts/monitorshot.sh}
+
+# Media Keys
+
+XF86AudioNext
+  playerctl -p next
+
+XF86AudioPrev 
+  playerctl -p previous
+
+XF86AudioPlay
+  playerctl -p play-pause
+
+XF86AudioRaiseVolume
+  pamixer -i 1
+
+XF86AudioLowerVolume
+  pamixer -d 1
+
+XF86AudioMute
+  pamixer -t
